@@ -6,7 +6,7 @@ for version in ${php_versions[*]}; do
   formula="php@$version"
 
   # Install php version
-  brew install "$formula"
+  brew_install_or_upgrade "$formula"
 
   # Configure each PHP-FPM (FastCGI Process Manager) listening port
   www_conf_path="/usr/local/etc/php/$version/php-fpm.d/www.conf"
