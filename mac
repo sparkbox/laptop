@@ -59,6 +59,13 @@ brew_uninstall() {
   fi
 }
 
+brew_cleanup() {
+  if brew_is_installed "$1"; then
+    fancy_echo "Cleaning up %s ..." "$1"
+    brew cleanup "$@"
+  fi
+}
+
 brew_install_or_upgrade() {
   if brew_is_installed "$1"; then
     if brew_is_upgradable "$1"; then
@@ -153,13 +160,29 @@ brew_tap 'caskroom/cask'
 ###########################
 #         NODEJS
 ##########################
+
+# Install NVM
+if ! command -v nvm >/dev/null; then
+  fancy_echo "Installing NVM ..."
+  curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh |   $SHELL
+
+  # Load NVM
+  export NVM_DIR="$HOME/.nvm"
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+else
+  fancy_echo "NVM already installed. Skipping ..."bash ""
+fi
+
 nodeversions=`./node-versions.rb`
 mostrecentnode=$(echo "${nodeversions[@]:-1:1}" | tail -1)
 
-# Install each versions
+# Iterate over LTS Node versions
 for version in $nodeversions; do
-  brew_install_or_upgrade $version
+  brew_cleanup node@$version
+  nvm install $version
 done
+
+nvm alias default $mostrecentnode
 
 # Link the last, most recent version
 brew unlink $mostrecentnode
