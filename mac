@@ -55,14 +55,7 @@ esac
 brew_uninstall() {
   if brew_is_installed "$1"; then
     fancy_echo "Uninstalling %s ..." "$1"
-    brew uninstall "$@"
-  fi
-}
-
-brew_cleanup() {
-  if brew_is_installed "$1"; then
-    fancy_echo "Cleaning up %s ..." "$1"
-    brew cleanup "$@"
+    brew uninstall -f "$@"
   fi
 }
 
@@ -176,9 +169,13 @@ fi
 nodeversions=`./node-versions.rb`
 mostrecentnode=$(echo "${nodeversions[@]:-1:1}" | tail -1)
 
-# Iterate over LTS Node versions
+# Remove any brew installed versions
 for version in $nodeversions; do
-  brew_cleanup node@$version
+  brew_uninstall node@$version
+done
+
+# Install LTS versions of Node
+for version in $nodeversions; do
   nvm install $version
 done
 
