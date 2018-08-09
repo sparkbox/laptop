@@ -164,7 +164,7 @@ brew_tap 'caskroom/cask'
 # Install NVM
 if ! command -v nvm >/dev/null; then
   fancy_echo "Installing NVM ..."
-  curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh |   $SHELL
+  curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | $SHELL
 
   # Load NVM
   export NVM_DIR="$HOME/.nvm"
