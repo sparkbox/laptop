@@ -80,6 +80,34 @@ brew_is_upgradable() {
   ! brew outdated --quiet "$name" >/dev/null
 }
 
+brew_cask_install_or_upgrade() {
+  if brew_cask_is_installed "$1"; then
+    if brew_cask_is_upgradable "$1"; then
+      fancy_echo "Upgrading %s ..." "$1"
+      brew cask upgrade "$@"
+    else
+      fancy_echo "Already using the latest version of %s. Skipping ..." "$1"
+    fi
+  else
+    fancy_echo "Installing %s ..." "$1"
+    brew cask install "$@" --force
+  fi
+}
+
+brew_cask_is_installed() {
+    local name
+    name="$(brew_cask_expand_alias "$1")"
+
+  brew cask list -1 | grep -Fqx "$name"
+}
+
+brew_cask_is_upgradable() {
+    local name
+    name="$(brew_cask_expand_alias "$1")"
+
+  ! brew cask outdated --quiet "$name" >/dev/null
+}
+
 brew_tap() {
   brew tap "$1" 2> /dev/null
 }
@@ -87,6 +115,11 @@ brew_tap() {
 brew_expand_alias() {
   brew info "$1" 2>/dev/null | head -1 | awk '{gsub(/:/, ""); print $1}'
 }
+
+brew_cask_expand_alias() {
+  brew cask info "$1" 2>/dev/null | head -1 | awk '{gsub(/:/, ""); print $1}'
+}
+
 
 brew_launchctl_restart() {
   local name
@@ -183,26 +216,13 @@ brew_install_or_upgrade 'hub'
 brew_install_or_upgrade 'openssl'
 brew unlink openssl && brew link openssl --force
 brew_install_or_upgrade 'libyaml'
-brew cask install firefox
-brew cask install google-chrome
-brew cask install sequel-pro
-brew cask install 1password
-brew cask install docker
+brew_cask_install_or_upgrade firefox
+brew_cask_install_or_upgrade google-chrome
+brew_cask_install_or_upgrade sequel-pro
+brew_cask_install_or_upgrade 1password
+brew_cask_install_or_upgrade docker
 brew tap heroku/brew
-brew_install_or_upgrade 'heroku/brew/heroku'
-
-case "$SHELL" in
-  */zsh) : ;;
-  *)
-    fancy_echo "Changing your shell to zsh ..."
-      shell_path="$(command -v zsh)"
-      if ! grep "$shell_path" /etc/shells > /dev/null 2>&1 ; then
-        fancy_echo "Adding '$shell_path' to /etc/shells"
-        sudo sh -c "echo $shell_path >> /etc/shells"
-      fi
-      sudo chsh -s "$shell_path" "$USER"
-    ;;
-esac
+brew_install_or_upgrade 'heroku-toolbelt'
 
 # Install PHP with FPM for use with the Sparkbox Standard Apache setup
 # shellcheck disable=SC1091
