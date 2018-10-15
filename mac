@@ -45,14 +45,6 @@ fi
 # shellcheck disable=SC2016
 append_to_zshrc 'export PATH="$HOME/.bin:$PATH"'
 
-case "$SHELL" in
-  */zsh) : ;;
-  *)
-    fancy_echo "Changing your shell to zsh ..."
-      chsh -s "$(command -v zsh)"
-    ;;
-esac
-
 brew_uninstall() {
   if brew_is_installed "$1"; then
     fancy_echo "Uninstalling %s ..." "$1"
@@ -198,6 +190,19 @@ brew cask install 1password
 brew cask install docker
 brew tap heroku/brew
 brew_install_or_upgrade 'heroku/brew/heroku'
+
+case "$SHELL" in
+  */zsh) : ;;
+  *)
+    fancy_echo "Changing your shell to zsh ..."
+      shell_path="$(command -v zsh)"
+      if ! grep "$shell_path" /etc/shells > /dev/null 2>&1 ; then
+        fancy_echo "Adding '$shell_path' to /etc/shells"
+        sudo sh -c "echo $shell_path >> /etc/shells"
+      fi
+      sudo chsh -s "$shell_path" "$USER"
+    ;;
+esac
 
 # Install PHP with FPM for use with the Sparkbox Standard Apache setup
 # shellcheck disable=SC1091
