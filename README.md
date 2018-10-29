@@ -23,14 +23,25 @@ versions are welcome.
 Install
 -------
 
-Download, review, then execute the script:
+1. Download the repo
 
 ```sh
 git clone git@github.com:sparkbox/laptop.git
 cd laptop
+```
+
+2. Review what it does
+```sh
 less mac
+```
+
+3. Execute the script:
+```sh
 sh mac 2>&1 | tee ~/laptop.log
 ```
+
+Note: A log of the script can be found at `~/laptop.log`
+
 
 Optionally, [install thoughtbot/dotfiles][dotfiles].
 
