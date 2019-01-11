@@ -1,6 +1,6 @@
 #!/bin/sh
 
-php_versions=("5.6" "7.0" "7.1" "7.2")
+php_versions=("7.1" "7.2")
 
 for version in ${php_versions[*]}; do
   formula="php@$version"
