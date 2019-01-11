@@ -167,6 +167,8 @@ brew link --force $mostrecentnode
 
 # Cleanup after old packages
 brew_uninstall 'mysql'
+brew_uninstall 'php56'
+brew_uninstall 'php70'
 
 brew_install_or_upgrade 'zsh'
 brew_install_or_upgrade 'git'
