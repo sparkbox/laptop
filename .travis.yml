@@ -1,15 +1,18 @@
+sudo: required
 language: sh
 
 before_script:
   - sudo apt-get -y update
   - sudo apt-get -y install shellcheck
 
+os: osx
+
 script:
-  - shellcheck mac
+  - ./mac
 
 notifications:
   email: false
 
-branches:
-  only:
-    - master
+# branches:
+#   only:
+#     - master
