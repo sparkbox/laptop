@@ -7,12 +7,16 @@ before_script:
 
 os: osx
 
+before_script:
+  # we need rvm keys
+  - curl -sSL https://rvm.io/mpapis.asc | gpg --import -
+  - curl -sSL https://rvm.io/pkuczynski.asc | gpg --import -
 script:
   - ./mac
 
 notifications:
   email: false
 
-# branches:
-#   only:
-#     - master
+branches:
+  only:
+    - master
