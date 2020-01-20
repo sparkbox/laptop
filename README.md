@@ -50,6 +50,7 @@ What it sets up
 ---------------
 
 * [Bundler] for managing Ruby libraries
+* [Docker] for running Docker instances
 * [Exuberant Ctags] for indexing files for vim tab completion
 * [Foreman] for managing web processes
 * [hub] for interacting with the GitHub API
@@ -69,6 +70,7 @@ What it sets up
 * [Zsh] as your shell
 
 [Bundler]: http://bundler.io/
+[Docker]: https://www.docker.com/
 [Exuberant Ctags]: http://ctags.sourceforge.net/
 [Firefox]: https://www.mozilla.org/en-US/firefox/
 [Foreman]: https://github.com/ddollar/foreman
