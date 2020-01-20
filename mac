@@ -130,10 +130,10 @@ install_rvm_with_dotfiles() {
 }
 
 enable_filevault() {
-  sudo fdesetup enable -user `whoami` -defer $HOME/filevault-setup.plist -forceatlogin 0 -dontaskatlogout
+  sudo fdesetup enable -user "$(whoami)" -defer "$HOME/filevault-setup.plist" -forceatlogin 0 -dontaskatlogout
   fancy_echo "The next time you login your Mac will prompt you to enable FileVault."
   fancy_echo "Once FileVault is enabled, copy the file created at $HOME/filevault-setup.plist into a secure note in 1Password."
-  fancy_echo "After you save it in 1Password, delete it with the following command: sudo rm $HOME/filevault-setup.plist"
+  fancy_echo "After you save this content in 1Password, delete it with the following command: sudo rm $HOME/filevault-setup.plist"
 }
 
 if ! command -v brew >/dev/null; then
@@ -156,17 +156,17 @@ fancy_echo "Updating Homebrew formulas ..."
 ###########################
 #         NODEJS
 ##########################
-nodeversions=`./node-versions.rb`
+nodeversions=$(./node-versions.rb)
 mostrecentnode=$(echo "${nodeversions[@]:-1:1}" | tail -1)
 
 # Install each versions
 for version in $nodeversions; do
-  brew_install_or_upgrade $version 
+  brew_install_or_upgrade "$version"
 done
 
 # Link the last, most recent version
-brew unlink $mostrecentnode
-brew link --force $mostrecentnode
+brew unlink "$mostrecentnode"
+brew link --force "$mostrecentnode"
 
 # Cleanup after old packages
 brew_uninstall 'mysql'
