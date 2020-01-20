@@ -199,9 +199,11 @@ brew tap heroku/brew
 brew_install_or_upgrade 'heroku/brew/heroku'
 
 # Install PHP with FPM for use with the Sparkbox Standard Apache setup
+# shellcheck disable=SC1091
 . ./php.sh
 
 if [ -f "$HOME/.laptop.local" ]; then
+  # shellcheck disable=SC1090
   . "$HOME/.laptop.local"
 fi
 
