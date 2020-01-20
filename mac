@@ -7,7 +7,7 @@ fancy_echo() {
   local fmt="$1"; shift
 
   # shellcheck disable=SC2059
-  printf "\n$fmt\n" "$@"
+  printf "\\n$fmt\\n" "$@"
 }
 
 append_to_zshrc() {
@@ -22,13 +22,14 @@ append_to_zshrc() {
 
   if ! grep -Fqs "$text" "$zshrc"; then
     if [ "$skip_new_line" -eq 1 ]; then
-      printf "%s\n" "$text" >> "$zshrc"
+      printf "%s\\n" "$text" >> "$zshrc"
     else
-      printf "\n%s\n" "$text" >> "$zshrc"
+      printf "\\n%s\\n" "$text" >> "$zshrc"
     fi
   fi
 }
 
+ret=0
 trap 'ret=$?; test $ret -ne 0 && printf "failed\n\n" >&2; exit $ret' EXIT
 
 set -e
