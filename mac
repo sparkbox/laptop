@@ -148,8 +148,6 @@ fi
 
 fancy_echo "Updating Homebrew formulas ..."
 
-brew_tap 'caskroom/cask'
-
 ###########################
 #         NODEJS
 ##########################
@@ -158,7 +156,7 @@ mostrecentnode=$(echo "${nodeversions[@]:-1:1}" | tail -1)
 
 # Install each versions
 for version in $nodeversions; do
-  brew_install_or_upgrade $version
+  brew_install_or_upgrade $version 
 done
 
 # Link the last, most recent version
