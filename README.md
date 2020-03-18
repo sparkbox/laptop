@@ -9,6 +9,7 @@ based on what is already installed on the machine.
 
 Requirements
 ------------
+**Warning!** Do not install any apps, such as Chrome, or Firefox, before running this script.
 
 We support:
 
