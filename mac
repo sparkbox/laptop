@@ -190,8 +190,11 @@ for version in $nodeversions; do
 done
 
 # Link the last, most recent version
-brew unlink "$mostrecentnode"
-brew link --force "$mostrecentnode"
+# don't do this in CI
+if [[ -z "$TRAVIS" ]]; then
+  brew unlink $mostrecentnode
+  brew link --force $mostrecentnode
+fi
 
 # Cleanup after old packages
 brew_uninstall 'mysql'
