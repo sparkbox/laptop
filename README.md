@@ -9,13 +9,12 @@ based on what is already installed on the machine.
 
 Requirements
 ------------
-**Warning!** Do not install any apps, such as Chrome, or Firefox, before running this script.
-
 We support:
 
+* macOS Catalina (10.15)
+* macOS Mojave (10.14)
+* macOS High Sierra (10.13)
 * macOS Sierra (10.12)
-* OS X El Capitan (10.11)
-* OS X Yosemite (10.10)
 
 Older versions may work but aren't regularly tested. Bug reports for older
 versions are welcome.
