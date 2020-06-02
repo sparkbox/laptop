@@ -178,21 +178,6 @@ fi
 
 fancy_echo "Updating Homebrew formulas ..."
 
-###########################
-#         NODEJS
-##########################
-nodeversions=$(./node-versions.rb)
-mostrecentnode=$(echo "${nodeversions[@]:-1:1}" | tail -1)
-
-# Install each versions
-for version in $nodeversions; do
-  brew_install_or_upgrade "$version"
-done
-
-# Link the last, most recent version
-brew unlink "$mostrecentnode"
-brew link --force "$mostrecentnode"
-
 # Cleanup after old packages
 brew_uninstall 'mysql'
 brew_uninstall 'php56'
