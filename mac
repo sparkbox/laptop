@@ -205,7 +205,7 @@ brew_cask_install_or_upgrade sequel-pro
 brew_cask_install_or_upgrade 1password
 brew_cask_install_or_upgrade docker
 brew tap heroku/brew
-brew_install_or_upgrade 'heroku-toolbelt'
+brew_install_or_upgrade 'heroku'
 
 # Install PHP with FPM for use with the Sparkbox Standard Apache setup
 # shellcheck disable=SC1091
