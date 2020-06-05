@@ -1,11 +1,12 @@
 language: sh
+os: osx
 
 before_script:
-  - sudo apt-get -y update
-  - sudo apt-get -y install shellcheck
+  - brew install shellcheck
 
 script:
   - shellcheck mac
+  - ./mac
 
 notifications:
   email: false
