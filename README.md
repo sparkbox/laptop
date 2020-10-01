@@ -25,7 +25,7 @@ Install
 1. Download the repo
 
 ```sh
-git clone git@github.com:sparkbox/laptop.git
+git clone https://github.com/sparkbox/laptop.git
 cd laptop
 ```
 
